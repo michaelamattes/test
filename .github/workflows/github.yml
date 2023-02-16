@@ -1,0 +1,17 @@
+---
+name: github
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  github:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: octokit/request-action@v2.x
+        with:
+          route: GET /repos/:owner/:repo
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
