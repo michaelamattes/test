@@ -11,9 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: octokit/request-action@v2.x
+        id: repos
         with:
           route: GET /repos/{owner}/{repo}
           owner: michaelamattes
           repo: test
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+      - run: "echo latest release: '${{ steps.repos.outputs.data }}'"
