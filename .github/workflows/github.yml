@@ -13,9 +13,7 @@ jobs:
       - uses: octokit/request-action@v2.x
         id: repos
         with:
-          route: GET /repos/{owner}/{repo}
-          owner: michaelamattes
-          repo: test
+          route: GET /repos/${{github.repository}}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
