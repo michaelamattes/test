@@ -13,7 +13,12 @@ jobs:
       - uses: octokit/request-action@v2.x
         id: repos
         with:
-          route: GET /repos/${{github.repository}}
+          route: PATCH /repos/${{github.repository}}
+          body: |
+            |
+            {
+              "description": "test"
+            }
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
