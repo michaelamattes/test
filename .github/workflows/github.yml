@@ -16,7 +16,14 @@ jobs:
         
       - name: setup jq  
         uses: dcarbone/install-jq-action@v1.0.1
-        
+   
+      - name: Obtain a GitHub App Installation Access Token
+        id: githubAppAuth
+        run: |
+          TOKEN="$(npx obtain-github-app-installation-access-token ci ${{ secrets.GH_APP_CREDENTIALS_TOKEN }})"
+          echo "::add-mask::$TOKEN"
+          echo "::set-output name=token::$TOKEN"
+          
       - name: repo settings
         run: |
           curl -X PATCH \
@@ -27,3 +34,4 @@ jobs:
           -d '{"description":"test"}'
         env:
           SETTINGS: .github/settings.yaml
+          GITHUB_TOKEN: ${{ steps.githubAppAuth.outputs.token }}
