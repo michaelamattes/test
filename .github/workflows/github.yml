@@ -12,16 +12,5 @@ jobs:
   github:
     runs-on: ubuntu-latest
     steps:
-      - uses: octokit/request-action@v2.x
-        id: repos
-        with:
-          route: PATCH /repos/${{github.repository}}
-          body: |
-            |
-            {
-              "description": "test"
-            }
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
-      - run: "echo latest release: '${{ steps.repos.outputs.data }}'"
+      - name: gh edit
+        run: gh repo edit --description test
