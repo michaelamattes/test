@@ -9,9 +9,9 @@ on:
 jobs:
   use_api:
     runs-on: ubuntu-latest
-    permissions: {}
     steps:
-      - env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Remove needs-reply label
         run: |
-          gh api -H "Accept: application/vnd.github+json" repos/michaelamattes/test/releases
+          curl --request GET \
+          --url 'https://api.github.com/repos/${{ github.repository }}/releases' \
+          --header 'Authorization: token ${{ secrets.GITHUB_TOKEN }}'
