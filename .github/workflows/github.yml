@@ -24,14 +24,4 @@ jobs:
           echo "::add-mask::$TOKEN"
           echo "::set-output name=token::$TOKEN"
           
-      - name: repo settings
-        run: |
-          curl -X PATCH \
-          -H 'Accept: application/vnd.github+json' \
-          -H 'Authorization: token ${{ secrets.GITHUB_TOKEN }}' \
-          -H "X-GitHub-Api-Version: 2022-11-28" \
-          --url 'https://api.github.com/repos/${{ github.repository }}' \
-          -d '{"description":"test"}'
-        env:
-          SETTINGS: .github/settings.yaml
-          GITHUB_TOKEN: ${{ steps.githubAppAuth.outputs.token }}
+
