@@ -5,17 +5,13 @@ on:
   push:
     branches:
       - main
-
-permissions: write-all
   
 jobs:
-  github:
+  use_api:
     runs-on: ubuntu-latest
+    permissions: {}
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-        
-      - name: gh edit
-        run: gh repo edit --description test
-    env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh api /octocat
