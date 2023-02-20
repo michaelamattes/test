@@ -24,12 +24,10 @@ jobs:
           echo "::add-mask::$TOKEN"
           echo "::set-output name=token::$TOKEN"
                   
-      - name: Use the obtained token
+      - name: add repos settings
         run: |
-         curl -X PATCH -H 'Accept: application/vnd.github+json' \
-         -H "Authorization: Bearer $GITHUB_TOKEN" \
-         --url "https://api.github.com/repos/${{ github.repository }}" \
-         -d '{"description":"test"}'   
+         DATA=$(jq '.repos| del(.topics)' .github/settings.json)
+         curl -X PATCH -H 'Accept: application/vnd.github+json' -H "Authorization: Bearer ${GITHUB_TOKEN}" --url "https://api.github.com/repos/${{ github.repository }}" -d  "${DATA}"  
         env:
-          GITHUB_TOKEN: ${{ steps.githubAppAuth.outputs.token }}          
+          GITHUB_TOKEN: ${{ steps.githubAppAuth.outputs.token }}
 
