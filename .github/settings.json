@@ -4,10 +4,11 @@
     "homepage": "https://t-systems-mms.github.io/",
     "visibility": "public",
     "default_branch": "main",
-    "topics": [
+    "topics": {
+      "names": [
       "terraform",
       "azure",
       "azurerm-container-registry"
-    ]
+    ]}
   }
 }
