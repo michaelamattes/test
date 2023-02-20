@@ -45,7 +45,7 @@ jobs:
 
       # needs  permission on repository
       - name: Setup collaborators Settings
-        if: (steps.api.outputs.collaborators != 1)
+        #if: (steps.api.outputs.collaborators != 1)
         run: |
           GET_USER=$(curl -H 'Accept: application/vnd.github+json' -H "Authorization: Bearer ${GITHUB_TOKEN}" --url "https://api.github.com/repos/${{ github.repository }}/collaborators")
           echo ${GET_USER}
