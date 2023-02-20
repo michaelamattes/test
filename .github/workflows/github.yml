@@ -14,7 +14,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         
-      - name: setup jq  
+      - name: Setup jq  
         uses: dcarbone/install-jq-action@v1.0.1
    
       - name: Obtain a GitHub App Installation Access Token
@@ -23,7 +23,7 @@ jobs:
           TOKEN="$(npx obtain-github-app-installation-access-token ci ${{ secrets.GH_APP_CREDENTIALS_TOKEN }})"
           echo token=${TOKEN} >> $GITHUB_OUTPUT
                   
-      - name: add repos settings
+      - name: Add repos Settings
         run: |
          DATA=$(jq '.repos| del(.topics)' .github/settings.json)
          DATA_TOPICS=$(jq '.repos.topics' .github/settings.json)
