@@ -29,7 +29,7 @@ jobs:
          DATA=$(jq '.repos| del(.topics)' .github/settings.json)
          DATA_TOPICS=$(jq '.repos.topics' .github/settings.json)
          curl -X PATCH -H 'Accept: application/vnd.github+json' -H "Authorization: Bearer ${GITHUB_TOKEN}" --url "https://api.github.com/repos/${{ github.repository }}" -d "${DATA}"  
-         curl -X PUT -H 'Accept: application/vnd.github+json' -H "Authorization: Bearer ${GITHUB_TOKEN}" --url "https://api.github.com/repos/${{ github.repository }}/topics" -d '{"names":${DATA_TOPICS}}' 
+         curl -X PUT -H 'Accept: application/vnd.github+json' -H "Authorization: Bearer ${GITHUB_TOKEN}" --url "https://api.github.com/repos/${{ github.repository }}/topics" -d "${DATA_TOPICS}"
         env:
           GITHUB_TOKEN: ${{ steps.githubAppAuth.outputs.token }}
 
