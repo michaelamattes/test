@@ -5,31 +5,39 @@ on:
   push:
     branches:
       - main
-  
+
 jobs:
-  use_api:
+  github:
     runs-on: ubuntu-latest
-    permissions: write-all
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        
-      - name: Setup jq  
+
+      - name: Setup jq
         uses: dcarbone/install-jq-action@v1.0.1
-   
+
       - name: Obtain a GitHub App Installation Access Token
         id: githubAppAuth
         run: |
           TOKEN="$(npx obtain-github-app-installation-access-token ci ${{ secrets.GH_APP_CREDENTIALS_TOKEN }})"
           echo token=${TOKEN} >> $GITHUB_OUTPUT
-                  
-      - name: Add repos Settings
+
+      - name: Get API
+        id: api
         run: |
-         DATA=$(jq '.repos| del(.topics)' ${SETTINGS})
-         DATA_TOPICS=$(jq '.repos.topics' ${SETTINGS})
-         curl -X PATCH -H 'Accept: application/vnd.github+json' -H "Authorization: Bearer ${GITHUB_TOKEN}" --url "https://api.github.com/repos/${{ github.repository }}" -d "${DATA}"  
-         curl -X PUT -H 'Accept: application/vnd.github+json' -H "Authorization: Bearer ${GITHUB_TOKEN}" --url "https://api.github.com/repos/${{ github.repository }}/topics" -d "${DATA_TOPICS}"
+          echo repos=$(jq -e '.repos' ${SETTINGS} >/dev/null; echo $?)  >> $GITHUB_OUTPUT
+        env:
+          SETTINGS: '.github/settings.json'
+
+      # needs administration permission on repository
+      - name: Add repositories Settings
+        if: (steps.api.outputs.repos != 1)
+        run: |
+          DATA=$(jq '.repos| del(.topics)' ${SETTINGS})
+          DATA_TOPICS=$(jq '.repos.topics' ${SETTINGS})
+
+          curl -X PATCH -H 'Accept: application/vnd.github+json' -H "Authorization: Bearer ${GITHUB_TOKEN}" --url "https://api.github.com/repos/${{ github.repository }}" -d "${DATA}"
+          curl -X PUT -H 'Accept: application/vnd.github+json' -H "Authorization: Bearer ${GITHUB_TOKEN}" --url "https://api.github.com/repos/${{ github.repository }}/topics" -d "${DATA_TOPICS}"
         env:
           GITHUB_TOKEN: ${{ steps.githubAppAuth.outputs.token }}
           SETTINGS: '.github/settings.json'
-
