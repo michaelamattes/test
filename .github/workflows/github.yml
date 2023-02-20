@@ -47,7 +47,7 @@ jobs:
       - name: Setup collaborators Settings
         #if: (steps.api.outputs.collaborators != 1)
         run: |
-          GET_USER=$(curl -H 'Accept: application/vnd.github+json' -H "Authorization: Bearer ${GITHUB_TOKEN}" --url "https://api.github.com/repos/${{ github.repository }}/collaborators")
+          GET_USER=$(curl -H 'Accept: application/vnd.github+json' -H "Authorization: Bearer ${GITHUB_TOKEN}" --url "https://api.github.com/repos/${{ github.repository }}/collaborators" | jq '.collaborators|.[].login')
           echo ${GET_USER}
         env:
           GITHUB_TOKEN: ${{ steps.githubAppAuth.outputs.token }}
