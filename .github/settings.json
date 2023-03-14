@@ -1,12 +1,13 @@
 {
   "repos": {
-    "description": "Just for test cases.",
-    "homepage": "",
-    "visibility": "private",
+    "description": "A Terraform module that manages the container resources from the azurerm provider.",
+    "homepage": "https://t-systems-mms.github.io",
+    "visibility": "public",
     "default_branch": "main",
-    "topics": {
-      "names": [
-      "test"
-    ]}
+    "topics": [
+      "terraform",
+      "azure",
+      "azurerm-container-registry"
+    ]
   }
 }

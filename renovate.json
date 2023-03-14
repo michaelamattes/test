@@ -1,0 +1,12 @@
+{
+  "extends": [
+    "config:base",
+    ":dependencyDashboard"
+  ],
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["patch"],
+      "automerge": true
+    }
+  ]
+}
