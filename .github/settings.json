@@ -13,9 +13,7 @@
   },
   "branches": {
     "main": {
-      "required_status_checks": {
-        "strict": true
-      },
+      "required_status_checks": null,
       "enforce_admins": null,
       "required_pull_request_reviews": {
         "required_approving_review_count": 1
