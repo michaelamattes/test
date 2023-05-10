@@ -5,12 +5,17 @@
     "default_branch": "main",
     "topics": [
       "terraform",
-      "azure",
-      "azurerm-container-registry"
     ]
   },
   "collaborators": {
     "michaelamattes": "admin",
     "rndmh3ro": "admin"
+  },
+  "branches": {
+    "main": {
+      "required_pull_request_reviews": {
+        "required_approving_review_count": 1
+      }
+    }
   }
 }

@@ -1,19 +1,19 @@
----
-name: release
+# ---
+# name: release
 
-on:
-  push:
-    branches: [main]
+# on:
+#   push:
+#     branches: [main]
 
-env:
-  TEMPLATE_REPOSITORY: telekom-mms/terraform-template
+# env:
+#   TEMPLATE_REPOSITORY: telekom-mms/terraform-template
 
-jobs:
-  call-readme:
-    if: github.repository != '$TEMPLATE_REPOSITORY'
-    uses: telekom-mms/.github/.github/workflows/terraform_docs.yml@main
-  call-release:
-    if: github.repository != '$TEMPLATE_REPOSITORY'
-    uses: telekom-mms/.github/.github/workflows/release.yml@main
-    with:
-      files: README.md
+# jobs:
+#   call-readme:
+#     if: github.repository != '$TEMPLATE_REPOSITORY'
+#     uses: telekom-mms/.github/.github/workflows/terraform_docs.yml@main
+#   call-release:
+#     if: github.repository != '$TEMPLATE_REPOSITORY'
+#     uses: telekom-mms/.github/.github/workflows/release.yml@main
+#     with:
+#       files: README.md
