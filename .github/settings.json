@@ -14,7 +14,7 @@
   "branches": {
     "main": {
       "required_status_checks": null,
-      "enforce_admins": true,
+      "enforce_admins": null,
       "required_pull_request_reviews": null,
       "restrictions":null
     }
